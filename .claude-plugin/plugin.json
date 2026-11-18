@@ -1,7 +1,7 @@
 {
   "name": "kouetsu",
   "displayName": "Kouetsu 校閲",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Has Claude check prose that other people will read - content first, then clarity, then stock patterns - and test it with a separate reader before you send it. Kouetsu (校閲, 교열) is the editor's check for facts and consistency.",
   "author": { "name": "prentice7725", "url": "https://github.com/prentice7725" },
   "homepage": "https://github.com/prentice7725/deslop",

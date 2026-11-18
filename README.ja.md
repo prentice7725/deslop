@@ -24,7 +24,7 @@ kouetsu は、他人が読む文章のための Claude プラグインです。�
 
 ## インストール
 
-kouetsu は、スキルを一つ含む Claude プラグインです。Claude Code と Claude アプリで動きます。Python 3 はなくてもかまいません。Claude がパターンを数えるときに使い、ない場合は検索して数えます。
+kouetsu は、スキルを一つ含む Claude プラグインです。Claude Code と Claude アプリで動きます。Markdown と JSON のファイルだけでできていて、コードを実行する部分はありません。
 
 ### Claude Code
 
@@ -62,12 +62,10 @@ kouetsu/
 ├── skills/
 │   └── kouetsu/
 │       ├── SKILL.md          # 三つの層と作業手順
-│       ├── references/
-│       │   ├── ko.md         # 韓国語のパターン
-│       │   ├── ja.md         # 日本語のパターン
-│       │   └── en.md         # 英語のパターン
-│       └── scripts/
-│           └── surface_scan.py   # 文とパターンを数える（Python 3、標準ライブラリのみ）
+│       └── references/
+│           ├── ko.md         # 韓国語のパターン
+│           ├── ja.md         # 日本語のパターン
+│           └── en.md         # 英語のパターン
 ├── README.md, README.ko.md, README.ja.md
 └── LICENSE
 ```
@@ -79,7 +77,7 @@ kouetsu/
 kouetsu はコネクタを追加せず、ネットワークへの通信もしません。何がどこで動くかは次のとおりです。
 
 - スキルは Claude への指示です。Claude は、依頼を受けたセッションの中で文章を読みます。
-- Claude は、点検中の下書きに `surface_scan.py` を実行することがあります。Claude Code ではユーザーのマシンで、Claude アプリではコード実行環境で動きます。スクリプトは渡されたファイルだけを読み、件数を出力します。
+- パターンを数えるとき、Claude はもともと持っている検索ツール（Claude Code の Grep など）を使います。プラグインはスクリプトを追加しません。
 - 長い文章の別レビュー（使い方を参照）は、Claude Code では同じセッション内のサブエージェントとして動きます。サブエージェントを起動できない環境では、文章を含むプロンプトを Claude が渡し、新しい会話に貼り付けるかどうかはユーザーが決めます。
 
 ## 使い方
@@ -145,16 +143,7 @@ kouetsu はコネクタを追加せず、ネットワークへの通信もしま
 
 ### パターンを数える
 
-モデルは目で数えるとよく間違えます。コードを実行できる環境では、Claude が `surface_scan.py` でパターン、太字、見出しを数えます。スクリプトには Python 3 が必要です。Claude Code ではユーザーのマシンに Python が要り、Claude アプリではコード実行環境で動きます。スクリプトを動かせないときは、Claude がパターンを一つずつ検索して数えます。
-
-自分で実行することもできます。
-
-```bash
-python3 skills/kouetsu/scripts/surface_scan.py draft.md            # 件数を数え、3回以上出たパターンに印を付ける
-python3 skills/kouetsu/scripts/surface_scan.py draft.md --number   # 診断用に [S1]、[S2]、... を付けて出力する
-```
-
-スクリプトは文字から言語を推定します。指定するときは `--lang ko`、`--lang ja`、`--lang en` を使います。それ以外の言語には英語の一覧を使うので、文・太字・見出しの数だけを参考にしてください。スクリプトは件数を報告するだけです。多く出たことは見直す理由であって、判定ではありません。
+モデルは目で数えるとよく間違えます。そのため Claude は、パターン、太字、見出しを検索ツールで一つずつ数えます。Claude Code では Grep、Claude アプリではコード実行環境の `grep -c` などです。多く出たことは見直す理由であって、判定ではありません。
 
 ## 常に適用したい場合
 

@@ -134,7 +134,7 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 3. For long text, show an outline first and get confirmation. Check that each section serves the promise.
 4. Write the draft.
 5. Check layer 2 sentence by sentence. Fix only the sentences that fail.
-6. For layer 3, check the all-languages table and the reference file for the language. Count the hits of each listed pattern, and bold labels and headers. Models miscount by eye, so when you can run code, run `python3 ${CLAUDE_SKILL_DIR}/scripts/surface_scan.py <file>` and use its counts. When you cannot, search for each pattern one at a time. Fix any pattern that appears more than twice, starting from the cause.
+6. For layer 3, check the all-languages table and the reference file for the language. Count the hits of each listed pattern, and bold labels and headers. Models miscount by eye, so count with a search tool, one pattern at a time: a search that returns a match count, or `grep -c -E` where you can run commands. Search table cells too. Fix any pattern that appears more than twice, starting from the cause.
 7. Check consistency and test with a reader. Compare every decision, defined term, and list of people against the body. Each must say the same thing wherever it appears. For long text, do not rely on your own reread: writers miss their own contradictions, and they cannot see what the text leaves out because they already know it. Hand a separate reviewer the finished text and your one-line answer to the layer-1 Reader question, and nothing else. The reviewer is a subagent. When you cannot start one, give the user a ready-to-paste prompt that contains the reviewer instructions, the reader line, and the text, and ask them to run it in a new conversation and bring back the findings. Ask it to run "Diagnosis only" and report every `[inconsistent]` pair and every `[blindspot]`. Fix what it reports. If no separate reviewer ran, say in the hand-off that only the writer checked consistency and gaps.
 8. Reread from the top: does a reader who stops after two sentences know the point?
 
@@ -146,7 +146,7 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 
 **Diagnosis only**
 
-- Number the sentences before tagging: `[S1]`, `[S2]`, and so on. Run `python3 ${CLAUDE_SKILL_DIR}/scripts/surface_scan.py <file> --number` when you can run code. Refer to sentences by number, and take the total from the numbering, not from an estimate.
+- Number the sentences before tagging: `[S1]`, `[S2]`, and so on. Write the numbered text out before tagging. Refer to sentences by number, and take the total from the last number, not from an estimate.
 - Report by layer, layer 1 first.
 - Tag sentences: `[actor]` `[vague]` `[empty]` `[buried]` `[pattern:name]`. Use `[buried]` when a failure, risk, or request sits where the reader will miss it.
 - Tag mismatches between sections as `[inconsistent]` and name both places. Check four things: decisions against the body, defined terms against their uses, lists of people against each other, and cross-references (section numbers, IDs) against their targets.

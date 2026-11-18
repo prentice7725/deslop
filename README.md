@@ -24,7 +24,7 @@ It works on text in any language. Korean, Japanese, and English also have their 
 
 ## Install
 
-kouetsu is a Claude plugin that contains one skill. It works in Claude Code and in the Claude app. Python 3 is optional: Claude uses it to count patterns, and without it Claude counts by searching instead.
+kouetsu is a Claude plugin that contains one skill. It works in Claude Code and in the Claude app. It contains only Markdown and JSON, and nothing in it runs code.
 
 ### Claude Code
 
@@ -60,12 +60,10 @@ kouetsu/
 ├── skills/
 │   └── kouetsu/
 │       ├── SKILL.md          # the three layers and the workflow
-│       ├── references/
-│       │   ├── ko.md         # Korean patterns
-│       │   ├── ja.md         # Japanese patterns
-│       │   └── en.md         # English patterns
-│       └── scripts/
-│           └── surface_scan.py   # counts sentences and patterns (Python 3, standard library only)
+│       └── references/
+│           ├── ko.md         # Korean patterns
+│           ├── ja.md         # Japanese patterns
+│           └── en.md         # English patterns
 ├── README.md, README.ko.md, README.ja.md
 └── LICENSE
 ```
@@ -77,7 +75,7 @@ kouetsu/
 kouetsu adds no connector and makes no network requests. What runs, and where:
 
 - The skill is instructions for Claude. Claude reads your text in the session where you asked for it.
-- Claude may run `surface_scan.py` on the draft it is checking: on your machine in Claude Code, or in the code execution environment in the Claude app. The script reads only the file it is given and prints counts.
+- To count patterns, Claude uses the search tools it already has, such as Grep in Claude Code. The plugin adds no scripts.
 - The separate review for long text (see Usage) runs as a subagent in the same session in Claude Code. Where Claude cannot start a subagent, it gives you a prompt that contains the text, and you decide whether to paste it into a new conversation.
 
 ## Usage
@@ -143,16 +141,7 @@ This costs one more pass over the text: the second reader reads it once and writ
 
 ### Pattern counts
 
-Models miscount when they count by eye. Where Claude can run code, it counts patterns, bold text, and headings with `surface_scan.py`. The script needs Python 3. In Claude Code it needs Python on your machine. In the Claude app it runs in the code execution environment. Where the script cannot run, Claude searches for each pattern one at a time instead.
-
-You can run the script yourself:
-
-```bash
-python3 skills/kouetsu/scripts/surface_scan.py draft.md            # counts, and flags patterns that appear more than twice
-python3 skills/kouetsu/scripts/surface_scan.py draft.md --number   # prints the text with [S1], [S2], ... for diagnosis
-```
-
-The script guesses the language from the characters in the text. Use `--lang ko`, `--lang ja`, or `--lang en` to set it. For other languages it uses the English list, so rely only on its counts of sentences, bold text, and headings. It reports counts only. A high count is a reason to look, not a verdict.
+Models miscount when they count by eye. So Claude counts each pattern, bold label, and heading with a search tool, such as Grep in Claude Code or `grep -c` in the Claude app's code execution environment. A high count is a reason to look, not a verdict.
 
 ## Applying it all the time
 
