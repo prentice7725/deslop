@@ -52,7 +52,7 @@ git clone https://github.com/prentice7725/deslop ~/.claude/skills/deslop
 
 - 新しく書く: 「deslop の基準でこの PR の説明を書いて」
 - 直す: 「この報告書を deslop で直して」
-- 診断だけ: 「この文章を deslop で診断して」（文ごとに `[actor]` `[vague]` `[empty]` `[pattern:名前]` のいずれかを付け、欠陥のある文の割合を報告します）
+- 診断だけ: 「この文章を deslop で診断して」（文に `[actor]` `[vague]` `[empty]` `[buried]` `[pattern:名前]` を付け、節どうしの食い違いには `[inconsistent]` を付けて、欠陥のある文の割合を報告します）
 
 材料が足りないときの動作は、文章の長さで変わります。
 
