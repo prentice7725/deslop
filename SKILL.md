@@ -34,11 +34,18 @@ Before writing, answer five questions in one line each.
 
 ### When an answer is missing
 
-Handle it by the size of the text.
+Sort each gap first: is it yours to decide, or the reader's to answer?
+
+- **Decide it** when the answer follows from precedent (the source or earlier work already settled the same kind of question) or from common practice that a competent person in the field would not dispute. Write the decision and the reason, and label it as your decision so the reader can overrule it. In long text, collect the decisions in one place.
+- **Ask** when the answer depends on the reader's own business rules, money, people, or policy, or when two reasonable people would choose differently.
+- Test: would you be surprised if the owner chose the opposite? If yes, decide. If no, ask.
+- A decision is a choice you own. A fact must be true. Never decide a fact: do not fill a gap with a plausible example, anecdote, number, or source.
+
+How to ask depends on the size of the text.
 
 - **Long text** (documents, articles, reports, proposals, design docs: several paragraphs that the reader spends time on): ask the user before writing. One or two questions at a time, starting with the one that shapes the text most.
 - **Short text** (messages, email, commits, short answers, one- or two-paragraph summaries): write without asking. Do not invent the missing part. Mark it as `[needs confirmation: what]`, written in the language of the text, and list the marks in one line at the end.
-- In both cases, never fill a gap with a plausible example, anecdote, number, or source.
+- For every question or mark, say who can answer and what stays blocked until they do. Give a date only when the source has a schedule to derive it from.
 
 ### Rules
 
@@ -124,7 +131,7 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 3. For long text, show an outline first and get confirmation. Check that each section serves the promise.
 4. Write the draft.
 5. Check layer 2 sentence by sentence. Fix only the sentences that fail.
-6. For layer 3, check the all-languages table and the reference file for the language. Fix repeated patterns from the cause.
+6. For layer 3, check the all-languages table and the reference file for the language. Search the draft for each listed pattern and count the hits. Fix any pattern that appears more than twice, starting from the cause. Count bold labels and headers the same way.
 7. Reread from the top: does a reader who stops after two sentences know the point?
 
 **Revising existing text**
