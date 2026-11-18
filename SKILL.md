@@ -51,7 +51,7 @@ How to ask depends on the size of the text.
 
 - Separate what was verified from what was not. Do not mix what you ran, what you only read, and what you inferred.
 - If there is nothing to add, write less or do not write. Do not cover a gap with volume.
-- Length is review cost for the reader. If reading and checking takes more effort than producing did, cut.
+- Length is review cost for the reader, so cut what the reader will not use. Never cut what the reader needs in order to act: identifiers, numbers, definitions, and decisions that the next person would otherwise have to invent. A specification that is short because it leaves these out costs the reader more.
 - Every paragraph must serve the promise. Cut paragraphs that do not, even when they are true.
 - Terms and actors must agree across sections. Every term the text uses is defined, every defined term is used, and the same people appear wherever the text lists users, permissions, or recipients.
 
@@ -132,7 +132,8 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 4. Write the draft.
 5. Check layer 2 sentence by sentence. Fix only the sentences that fail.
 6. For layer 3, check the all-languages table and the reference file for the language. Search the draft for each listed pattern and count the hits. Fix any pattern that appears more than twice, starting from the cause. Count bold labels and headers the same way.
-7. Reread from the top: does a reader who stops after two sentences know the point?
+7. Check consistency. Compare every decision, defined term, and list of people against the body. Each must say the same thing wherever it appears.
+8. Reread from the top: does a reader who stops after two sentences know the point?
 
 **Revising existing text**
 
