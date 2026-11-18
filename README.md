@@ -61,6 +61,8 @@ When source material is missing, the behavior depends on the size of the text.
 
 In both cases the skill first sorts each gap. It decides what precedent or common practice settles, states the reason, and labels the decision so you can overrule it. It asks only about what depends on your own rules, money, people, or policy.
 
+For long text, the skill does not trust the writer's own reread for consistency. It hands the finished text to a separate reviewer (a subagent, or a new conversation) that reports mismatches between sections, then fixes them.
+
 ## Applying it all the time
 
 A skill loads only when the model decides the task is a writing task. To cover text that appears every turn, such as Claude Code's work reports, put the core rules in `CLAUDE.md`.

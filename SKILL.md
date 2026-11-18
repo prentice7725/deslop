@@ -132,7 +132,7 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 4. Write the draft.
 5. Check layer 2 sentence by sentence. Fix only the sentences that fail.
 6. For layer 3, check the all-languages table and the reference file for the language. Search the draft for each listed pattern and count the hits. Fix any pattern that appears more than twice, starting from the cause. Count bold labels and headers the same way.
-7. Check consistency. Compare every decision, defined term, and list of people against the body. Each must say the same thing wherever it appears.
+7. Check consistency. Compare every decision, defined term, and list of people against the body. Each must say the same thing wherever it appears. For long text, do not rely on your own reread, because writers miss their own contradictions. Hand the finished text, and nothing else, to a separate reviewer: a subagent, or a new conversation when no subagent is available. Ask it to run "Diagnosis only" and report every `[inconsistent]` pair. Fix what it reports. If no separate reviewer ran, say in the hand-off that only the writer checked consistency.
 8. Reread from the top: does a reader who stops after two sentences know the point?
 
 **Revising existing text**
@@ -145,7 +145,7 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 
 - Report by layer, layer 1 first.
 - Tag sentences: `[actor]` `[vague]` `[empty]` `[buried]` `[pattern:name]`. Use `[buried]` when a failure, risk, or request sits where the reader will miss it.
-- Tag mismatches between sections as `[inconsistent]` and name both places.
+- Tag mismatches between sections as `[inconsistent]` and name both places. Check four things: decisions against the body, defined terms against their uses, lists of people against each other, and cross-references (section numbers, IDs) against their targets.
 - Report defective sentences over total sentences.
 - Do not judge whether the text "looks AI-written". This skill measures reader cost, not origin.
 
