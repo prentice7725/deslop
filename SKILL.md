@@ -1,6 +1,6 @@
 ---
 name: deslop
-description: Use when writing, revising, or reviewing text that someone else will read (docs, reports, messages, PR descriptions, articles, summaries, final answers). Checks content ownership, sentence clarity, and skip-triggering stock patterns, in that order, to prevent slop. Includes Korean, Japanese, and English patterns.
+description: Use this skill whenever you draft, rewrite, or review prose that other people will read, even if the user does not name it - PR descriptions, commit messages, READMEs, design docs, specs, RFCs, incident postmortems, reports, proposals, emails, team updates, and articles. Not for code, fiction, or one-line answers. Checks content ownership, sentence clarity, and skip-triggering stock patterns, in that order, so the reader does not pay for effort the writer saved. Includes Korean, Japanese, and English patterns.
 ---
 
 # deslop
@@ -119,6 +119,7 @@ When passing the result to a person or another agent, add:
 - the points where the reader must decide, and what they need to decide
 - the boundary between material the user gave you and what you added (especially if the user will publish under their own name)
 - the list of remaining `[needs confirmation]` marks
+- for long text, whether a separate reviewer checked consistency and gaps
 
 Text you hand off stays in docs, chat, and repos and becomes source material for the next text. Wrong or empty sentences get copied from there.
 
@@ -131,8 +132,8 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 3. For long text, show an outline first and get confirmation. Check that each section serves the promise.
 4. Write the draft.
 5. Check layer 2 sentence by sentence. Fix only the sentences that fail.
-6. For layer 3, check the all-languages table and the reference file for the language. Search the draft for each listed pattern and count the hits. Fix any pattern that appears more than twice, starting from the cause. Count bold labels and headers the same way.
-7. Check consistency. Compare every decision, defined term, and list of people against the body. Each must say the same thing wherever it appears. For long text, do not rely on your own reread, because writers miss their own contradictions. Hand the finished text, and nothing else, to a separate reviewer: a subagent, or a new conversation when no subagent is available. Ask it to run "Diagnosis only" and report every `[inconsistent]` pair. Fix what it reports. If no separate reviewer ran, say in the hand-off that only the writer checked consistency.
+6. For layer 3, check the all-languages table and the reference file for the language. Count the hits of each listed pattern, and bold labels and headers. Models miscount by eye, so when you can run code, run `python3 scripts/surface_scan.py <file>` from this skill's folder and use its counts. When you cannot, search for each pattern one at a time. Fix any pattern that appears more than twice, starting from the cause.
+7. Check consistency and test with a reader. Compare every decision, defined term, and list of people against the body. Each must say the same thing wherever it appears. For long text, do not rely on your own reread: writers miss their own contradictions, and they cannot see what the text leaves out because they already know it. Hand a separate reviewer the finished text and your one-line answer to the layer-1 Reader question, and nothing else. The reviewer is a subagent. When you cannot start one, give the user a ready-to-paste prompt that contains the reviewer instructions, the reader line, and the text, and ask them to run it in a new conversation and bring back the findings. Ask it to run "Diagnosis only" and report every `[inconsistent]` pair and every `[blindspot]`. Fix what it reports. If no separate reviewer ran, say in the hand-off that only the writer checked consistency and gaps.
 8. Reread from the top: does a reader who stops after two sentences know the point?
 
 **Revising existing text**
@@ -143,10 +144,12 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 
 **Diagnosis only**
 
+- Number the sentences before tagging: `[S1]`, `[S2]`, and so on. Run `python3 scripts/surface_scan.py <file> --number` when you can run code. Refer to sentences by number, and take the total from the numbering, not from an estimate.
 - Report by layer, layer 1 first.
 - Tag sentences: `[actor]` `[vague]` `[empty]` `[buried]` `[pattern:name]`. Use `[buried]` when a failure, risk, or request sits where the reader will miss it.
 - Tag mismatches between sections as `[inconsistent]` and name both places. Check four things: decisions against the body, defined terms against their uses, lists of people against each other, and cross-references (section numbers, IDs) against their targets.
-- Report defective sentences over total sentences.
+- Test the text as its reader. Take the reader the writer named, or infer one from the text. List 5 to 10 questions that reader would bring to the text, and answer each from the text alone. Tag `[blindspot]` wherever the answer is missing, or the reader would have to guess, or the text assumes knowledge the reader does not have. Say which question exposed it.
+- Report defective sentences over total sentences, using the numbering.
 - Do not judge whether the text "looks AI-written". This skill measures reader cost, not origin.
 
 ## Limits
