@@ -24,7 +24,7 @@ kouetsu는 남이 읽을 글을 위한 Claude 플러그인입니다. 이름은 �
 
 ## 설치
 
-kouetsu는 스킬 하나를 담은 Claude 플러그인입니다. Claude Code와 Claude 앱에서 동작합니다. Python 3은 없어도 됩니다. Claude가 패턴을 셀 때 쓰고, 없으면 검색해서 셉니다.
+kouetsu는 스킬 하나를 담은 Claude 플러그인입니다. Claude Code와 Claude 앱에서 동작합니다. Markdown과 JSON 파일로만 이루어져 있고, 코드를 실행하는 부분은 없습니다.
 
 ### Claude Code
 
@@ -62,12 +62,10 @@ kouetsu/
 ├── skills/
 │   └── kouetsu/
 │       ├── SKILL.md          # 세 층과 작업 순서
-│       ├── references/
-│       │   ├── ko.md         # 한국어 패턴
-│       │   ├── ja.md         # 일본어 패턴
-│       │   └── en.md         # 영어 패턴
-│       └── scripts/
-│           └── surface_scan.py   # 문장과 패턴을 센다 (Python 3, 표준 라이브러리만 사용)
+│       └── references/
+│           ├── ko.md         # 한국어 패턴
+│           ├── ja.md         # 일본어 패턴
+│           └── en.md         # 영어 패턴
 ├── README.md, README.ko.md, README.ja.md
 └── LICENSE
 ```
@@ -79,7 +77,7 @@ kouetsu/
 kouetsu는 커넥터를 추가하지 않고, 네트워크 요청을 하지 않습니다. 무엇이 어디서 도는지는 다음과 같습니다.
 
 - 스킬은 Claude에게 주는 지시문입니다. Claude는 요청을 받은 세션 안에서 글을 읽습니다.
-- Claude가 점검하는 초안에 `surface_scan.py`를 돌릴 수 있습니다. Claude Code에서는 사용자 컴퓨터에서, Claude 앱에서는 코드 실행 환경에서 돕니다. 스크립트는 넘겨받은 파일만 읽고 개수를 출력합니다.
+- 패턴을 셀 때 Claude는 원래 가진 검색 도구(Claude Code의 Grep 등)를 씁니다. 플러그인은 스크립트를 추가하지 않습니다.
 - 긴 글의 별도 검토(쓰는 법 참고)는 Claude Code에서는 같은 세션 안의 서브에이전트로 돕니다. 서브에이전트를 띄울 수 없는 곳에서는 Claude가 글을 담은 프롬프트를 드리고, 새 대화에 붙여 넣을지는 사용자가 정합니다.
 
 ## 쓰는 법
@@ -145,16 +143,7 @@ kouetsu는 커넥터를 추가하지 않고, 네트워크 요청을 하지 않�
 
 ### 패턴 세기
 
-모델은 눈으로 세면 자주 틀립니다. 코드를 실행할 수 있는 곳에서는 Claude가 `surface_scan.py`로 패턴, 굵은 글씨, 제목을 셉니다. 스크립트에는 Python 3이 필요합니다. Claude Code에서는 사용자 컴퓨터에 Python이 있어야 하고, Claude 앱에서는 코드 실행 환경에서 돕니다. 스크립트를 돌릴 수 없으면 Claude가 패턴을 하나씩 검색해서 셉니다.
-
-직접 돌릴 수도 있습니다.
-
-```bash
-python3 skills/kouetsu/scripts/surface_scan.py draft.md            # 개수를 세고, 두 번 넘게 나온 패턴에 표시
-python3 skills/kouetsu/scripts/surface_scan.py draft.md --number   # 진단용으로 [S1], [S2], ... 을 붙여 출력
-```
-
-스크립트는 글자를 보고 언어를 추정합니다. 직접 정하려면 `--lang ko`, `--lang ja`, `--lang en`을 씁니다. 그 밖의 언어에는 영어 목록을 쓰므로, 문장·굵은 글씨·제목의 개수만 참고하세요. 스크립트는 개수만 보고합니다. 많이 나왔다는 것은 살펴볼 이유이지 판정이 아닙니다.
+모델은 눈으로 세면 자주 틀립니다. 그래서 Claude는 패턴, 굵은 글씨, 제목을 검색 도구로 하나씩 셉니다. Claude Code에서는 Grep, Claude 앱에서는 코드 실행 환경의 `grep -c` 같은 도구입니다. 많이 나왔다는 것은 살펴볼 이유이지 판정이 아닙니다.
 
 ## 항상 적용하려면
 
