@@ -59,6 +59,8 @@ When source material is missing, the behavior depends on the size of the text.
 - Long text: the skill asks you before writing.
 - Short text: it writes without asking and leaves `[needs confirmation: what]` where the gap is.
 
+In both cases the skill first sorts each gap. It decides what precedent or common practice settles, states the reason, and labels the decision so you can overrule it. It asks only about what depends on your own rules, money, people, or policy.
+
 ## Applying it all the time
 
 A skill loads only when the model decides the task is a writing task. To cover text that appears every turn, such as Claude Code's work reports, put the core rules in `CLAUDE.md`.
