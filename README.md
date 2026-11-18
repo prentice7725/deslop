@@ -52,7 +52,7 @@ The skill loads automatically for writing tasks. You can also call it by name.
 
 - Write: "Write this PR description with deslop"
 - Revise: "Revise this report with deslop"
-- Diagnose: "Diagnose this text with deslop" (tags each sentence with `[actor]`, `[vague]`, `[empty]`, or `[pattern:name]` and reports the share of defective sentences)
+- Diagnose: "Diagnose this text with deslop" (tags sentences with `[actor]`, `[vague]`, `[empty]`, `[buried]`, or `[pattern:name]`, tags mismatches between sections with `[inconsistent]`, and reports the share of defective sentences)
 
 When source material is missing, the behavior depends on the size of the text.
 

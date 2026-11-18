@@ -52,7 +52,7 @@ git clone https://github.com/prentice7725/deslop ~/.claude/skills/deslop
 
 - 새로 쓰기: "deslop 기준으로 이 PR 설명 써줘"
 - 다듬기: "이 보고서 deslop으로 다듬어줘"
-- 진단만: "이 글 deslop으로 진단해줘" (문장마다 `[actor]`, `[vague]`, `[empty]`, `[pattern:이름]` 중 하나를 붙이고 결함 문장 비율을 보고합니다)
+- 진단만: "이 글 deslop으로 진단해줘" (문장에 `[actor]`, `[vague]`, `[empty]`, `[buried]`, `[pattern:이름]`을 붙이고, 절 사이의 불일치에는 `[inconsistent]`를 붙이며, 결함 문장 비율을 보고합니다)
 
 재료가 비어 있을 때의 동작은 글의 크기에 따라 다릅니다.
 

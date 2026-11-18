@@ -46,6 +46,7 @@ Handle it by the size of the text.
 - If there is nothing to add, write less or do not write. Do not cover a gap with volume.
 - Length is review cost for the reader. If reading and checking takes more effort than producing did, cut.
 - Every paragraph must serve the promise. Cut paragraphs that do not, even when they are true.
+- Terms and actors must agree across sections. Every term the text uses is defined, every defined term is used, and the same people appear wherever the text lists users, permissions, or recipients.
 
 ## Layer 2: Clarity
 
@@ -76,7 +77,7 @@ Ask three questions of every sentence.
 
 ## Layer 3: Surface
 
-The patterns below signal "not worth reading". Most are symptoms of layer 1 or 2 defects, so **fix the cause first, then delete what remains**. This is not a banned-word list. People write these too, and one or two instances are fine. Fix them when they repeat.
+The patterns below signal "not worth reading". Most are symptoms of layer 1 or 2 defects, so **fix the cause first, then delete what remains**. This is not a banned-word list. People write these too, and one or two instances are fine. Fix them when they repeat. A short sentence that introduces a list or table is not signposting. Leave it.
 
 ### All languages
 
@@ -134,7 +135,8 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 **Diagnosis only**
 
 - Report by layer, layer 1 first.
-- Tag sentences: `[actor]` `[vague]` `[empty]` `[pattern:name]`
+- Tag sentences: `[actor]` `[vague]` `[empty]` `[buried]` `[pattern:name]`. Use `[buried]` when a failure, risk, or request sits where the reader will miss it.
+- Tag mismatches between sections as `[inconsistent]` and name both places.
 - Report defective sentences over total sentences.
 - Do not judge whether the text "looks AI-written". This skill measures reader cost, not origin.
 

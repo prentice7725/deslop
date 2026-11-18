@@ -10,4 +10,5 @@ Not a banned-word list. Fix these when they repeat, and only after fixing the ca
 - **Negative parallelism**: repeated 「単なるXではなく、Yです」「XだけでなくYも」 → state Y.
 - **Runs of 体言止め**: even in bullet lists, write full sentences when the relations between items disappear.
 - **Stacked keigo**: repeated 「〜させていただきます」 → once is enough.
+- **「〜になります」 for something that simply is**: 「要件定義書になります」→「要件定義書です」.
 - **Katakana inflation**: do not rename plain things with grand loanwords.
