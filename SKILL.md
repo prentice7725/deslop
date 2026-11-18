@@ -58,6 +58,7 @@ Ask three questions of every sentence.
 - Avoid passives with no actor. "The cache was changed to be invalidated" → "`save()` invalidates the cache right after writing"
 - Do not use abstract nouns as subjects. The subject is the real actor: a person, a function, a team, or you.
 - Leave the sentence alone when the actor truly does not matter or the order is deliberate emphasis.
+- Name only actors the source states. If the source does not say who acts, do not infer one, even when the guess is plausible. Ask, or mark it `[needs confirmation]`.
 
 ### Does the reader know what every term refers to?
 
