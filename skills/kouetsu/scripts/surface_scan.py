@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""deslop 3층(표면) 점검용 스캐너.
+"""kouetsu 3층(표면) 점검용 스캐너.
 
 LLM이 눈으로 세면 틀리기 쉬운 것을 기계적으로 센다.
 - 문장 수와 문장 번호([S1], [S2] ...)
@@ -168,7 +168,7 @@ def number(text):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="deslop surface scan")
+    ap = argparse.ArgumentParser(description="kouetsu surface scan")
     ap.add_argument("file")
     ap.add_argument("--lang", choices=sorted(PATTERNS))
     ap.add_argument("--number", action="store_true")

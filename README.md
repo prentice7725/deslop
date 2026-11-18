@@ -1,8 +1,8 @@
-# deslop
+# kouetsu
 
 English | [한국어](README.ko.md) | [日本語](README.ja.md)
 
-deslop is a Claude skill for text that other people will read. Instead of hunting for words that sound like AI, it has Claude check what the reader will pay for, in three layers: content first, then clarity, then surface patterns.
+kouetsu is a Claude plugin for text that other people will read. The name is the Japanese word 校閲 (Korean 교열): the editor's check of a text for facts and consistency before it is published. Instead of hunting for words that sound like AI, it has Claude check what the reader will pay for, in three layers: content first, then clarity, then surface patterns.
 
 ## What slop means here
 
@@ -16,7 +16,7 @@ The skill checks three layers in order, because fixing a lower layer does nothin
 
 ## When it runs
 
-Claude loads the skill when you ask it to draft, rewrite, or review prose for other people, even if you do not name the skill. Examples are PR descriptions, commit messages, READMEs, design docs, specs, postmortems, reports, proposals, emails, and team updates. Claude decides on its own whether a request is that kind of task, so it can miss one. To be sure, name the skill: "with deslop".
+Claude loads the skill when you ask it to draft, rewrite, or review prose for other people, even if you do not name the skill. Examples are PR descriptions, commit messages, READMEs, design docs, specs, postmortems, reports, proposals, emails, and team updates. Claude decides on its own whether a request is that kind of task, so it can miss one. To be sure, name it: "with kouetsu".
 
 It does not review code, and it does not apply to fiction, poetry, or one-line answers.
 
@@ -24,42 +24,61 @@ It works on text in any language. Korean, Japanese, and English also have their 
 
 ## Install
 
+kouetsu is a Claude plugin that contains one skill. It works in Claude Code and in the Claude app. Python 3 is optional: Claude uses it to count patterns, and without it Claude counts by searching instead.
+
 ### Claude Code
 
-To use it in every project, clone it into your personal skills folder.
+Run these two commands in Claude Code:
 
-```bash
-git clone https://github.com/prentice7725/deslop ~/.claude/skills/deslop
+```
+/plugin marketplace add prentice7725/kouetsu
+/plugin install kouetsu@prentice7725
 ```
 
-To use it in one project, clone it into that project's `.claude/skills/deslop` instead. To update, run `git pull` in that folder and start a new session.
+To update, run `/plugin marketplace update prentice7725`, then start a new session.
+
+To try a local copy without installing it, run `claude --plugin-dir ./kouetsu` from the folder that contains your clone.
 
 ### Claude app
 
-This means Claude on the web and in the desktop app. Custom skills are available on the Free, Pro, Max, Team, and Enterprise plans and need code execution. On an individual plan, turn on code execution under Settings > Capabilities. On Team and Enterprise, an owner enables it in the organization settings. Then:
+This means Claude on the web and in the desktop app. Skills are available on the Free, Pro, Max, Team, and Enterprise plans and run only with code execution on. On an individual plan, turn it on under Settings > Capabilities. On Team and Enterprise, an owner turns it on in the organization settings, and the organization's settings also decide whether members can add plugins; if the Plugins menu is missing, ask an owner. Then add the plugin in one of two ways:
 
-1. Get the repository: `git clone` it, or use Code > Download ZIP on GitHub and unzip it.
-2. Make sure the folder is named `deslop`. A downloaded ZIP unzips to `deslop-main`, so rename it. The folder name must match the skill's name.
-3. Make a ZIP file that contains the `deslop` folder.
-4. Upload it under Customize > Skills.
+- Under Customize > Plugins > Add > Add marketplace, enter `https://github.com/prentice7725/kouetsu`. The app follows this repository, so you get updates.
+- Download the repository as a ZIP (Code > Download ZIP on GitHub) and upload it under Customize > Plugins > Add > Upload plugin. The app keeps that copy, so upload a new ZIP after this repository changes.
 
-The app keeps its own copy. When this repository is updated, upload a new ZIP.
+### Only the skill (Claude Code)
+
+To use the skill in Claude Code without the plugin system, copy the `skills/kouetsu` folder into `~/.claude/skills/kouetsu`. To update, copy it again.
 
 ### Files
 
 ```
-deslop/
-├── SKILL.md              # the three layers and the workflow
-├── references/
-│   ├── ko.md             # Korean patterns
-│   ├── ja.md             # Japanese patterns
-│   └── en.md             # English patterns
-├── scripts/
-│   └── surface_scan.py   # counts sentences and patterns (Python 3, standard library only)
+kouetsu/
+├── .claude-plugin/
+│   ├── plugin.json           # plugin manifest
+│   └── marketplace.json      # lets /plugin marketplace add find the plugin
+├── skills/
+│   └── kouetsu/
+│       ├── SKILL.md          # the three layers and the workflow
+│       ├── references/
+│       │   ├── ko.md         # Korean patterns
+│       │   ├── ja.md         # Japanese patterns
+│       │   └── en.md         # English patterns
+│       └── scripts/
+│           └── surface_scan.py   # counts sentences and patterns (Python 3, standard library only)
+├── README.md, README.ko.md, README.ja.md
 └── LICENSE
 ```
 
 `SKILL.md` is written in English to use fewer tokens.
+
+## Data
+
+kouetsu adds no connector and makes no network requests. What runs, and where:
+
+- The skill is instructions for Claude. Claude reads your text in the session where you asked for it.
+- Claude may run `surface_scan.py` on the draft it is checking: on your machine in Claude Code, or in the code execution environment in the Claude app. The script reads only the file it is given and prints counts.
+- The separate review for long text (see Usage) runs as a subagent in the same session in Claude Code. Where Claude cannot start a subagent, it gives you a prompt that contains the text, and you decide whether to paste it into a new conversation.
 
 ## Usage
 
@@ -83,11 +102,11 @@ Claude decides which kind a text is. You can override it: tell Claude to treat a
 
 ### Revise
 
-Ask Claude to revise existing text with deslop, for example "Revise this report with deslop." Claude keeps the facts and the author's voice and changes only the sentences that fail a check. It does not fill in an actor, number, or source that the original lacks. For long text, it asks you. For short text, it marks the gap as `[needs confirmation: what]`.
+Ask Claude to revise existing text with kouetsu, for example "Revise this report with kouetsu." Claude keeps the facts and the author's voice and changes only the sentences that fail a check. It does not fill in an actor, number, or source that the original lacks. For long text, it asks you. For short text, it marks the gap as `[needs confirmation: what]`.
 
 ### Diagnose
 
-Ask Claude to diagnose text with deslop, for example "Diagnose this spec with deslop." Claude does not rewrite anything. It numbers the sentences (`[S1]`, `[S2]`, …), tags each problem, reports the problems by layer, and gives the share of defective sentences.
+Ask Claude to diagnose text with kouetsu, for example "Diagnose this spec with kouetsu." Claude does not rewrite anything. It numbers the sentences (`[S1]`, `[S2]`, …), tags each problem, reports the problems by layer, and gives the share of defective sentences.
 
 | Tag | Layer | Meaning |
 |---|---|---|
@@ -124,13 +143,13 @@ This costs one more pass over the text: the second reader reads it once and writ
 
 ### Pattern counts
 
-Models miscount when they count by eye. Where Claude can run code, it counts patterns, bold text, and headings with `scripts/surface_scan.py`. The script needs Python 3. In Claude Code it needs Python on your machine. In the Claude app it runs in the code execution environment. Where the script cannot run, Claude searches for each pattern one at a time instead.
+Models miscount when they count by eye. Where Claude can run code, it counts patterns, bold text, and headings with `surface_scan.py`. The script needs Python 3. In Claude Code it needs Python on your machine. In the Claude app it runs in the code execution environment. Where the script cannot run, Claude searches for each pattern one at a time instead.
 
 You can run the script yourself:
 
 ```bash
-python3 scripts/surface_scan.py draft.md            # counts, and flags patterns that appear more than twice
-python3 scripts/surface_scan.py draft.md --number   # prints the text with [S1], [S2], ... for diagnosis
+python3 skills/kouetsu/scripts/surface_scan.py draft.md            # counts, and flags patterns that appear more than twice
+python3 skills/kouetsu/scripts/surface_scan.py draft.md --number   # prints the text with [S1], [S2], ... for diagnosis
 ```
 
 The script guesses the language from the characters in the text. Use `--lang ko`, `--lang ja`, or `--lang en` to set it. For other languages it uses the English list, so rely only on its counts of sentences, bold text, and headings. It reports counts only. A high count is a reason to look, not a verdict.
