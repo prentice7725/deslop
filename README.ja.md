@@ -1,8 +1,8 @@
-# deslop
+# kouetsu
 
 [English](README.md) | [한국어](README.ko.md) | 日本語
 
-deslop は、他人が読む文章のための Claude スキルです。AI っぽく聞こえる言葉を探して消すのではなく、読み手が何を代わりに払わされるかを、内容、明確さ、表面のパターンの順に Claude に点検させます。
+kouetsu は、他人が読む文章のための Claude プラグインです。名前は「校閲」から取りました。文章を出す前に、事実関係と前後の整合性を確かめる編集の仕事です。AI っぽく聞こえる言葉を探して消すのではなく、読み手が何を代わりに払わされるかを、内容、明確さ、表面のパターンの順に Claude に点検させます。
 
 ## ここでいうスロップ
 
@@ -16,7 +16,7 @@ deslop は、他人が読む文章のための Claude スキルです。AI っ�
 
 ## いつ使われるか
 
-他人が読む文章を書く、書き直す、レビューするよう頼むと、Claude がこのスキルを読み込みます。スキルの名前を出す必要はありません。PR の説明、コミットメッセージ、README、設計書、仕様書、障害の振り返り、報告書、提案書、メール、チームへのお知らせなどです。依頼がこうした作業かどうかは Claude が自分で判断するので、見落とすこともあります。確実にするには「deslop で」と名前を付けてください。
+他人が読む文章を書く、書き直す、レビューするよう頼むと、Claude がこのスキルを読み込みます。スキルの名前を出す必要はありません。PR の説明、コミットメッセージ、README、設計書、仕様書、障害の振り返り、報告書、提案書、メール、チームへのお知らせなどです。依頼がこうした作業かどうかは Claude が自分で判断するので、見落とすこともあります。確実にするには「kouetsu で」と名前を付けてください。
 
 コードはレビューせず、小説・詩・一行の回答には使いません。
 
@@ -24,44 +24,63 @@ deslop は、他人が読む文章のための Claude スキルです。AI っ�
 
 ## インストール
 
+kouetsu は、スキルを一つ含む Claude プラグインです。Claude Code と Claude アプリで動きます。Python 3 はなくてもかまいません。Claude がパターンを数えるときに使い、ない場合は検索して数えます。
+
 ### Claude Code
 
-すべてのプロジェクトで使う場合は、個人用のスキルフォルダにクローンします。
+Claude Code で次の二つのコマンドを実行します。
 
-```bash
-git clone https://github.com/prentice7725/deslop ~/.claude/skills/deslop
+```
+/plugin marketplace add prentice7725/kouetsu
+/plugin install kouetsu@prentice7725
 ```
 
-一つのプロジェクトだけで使う場合は、そのプロジェクトの `.claude/skills/deslop` にクローンします。更新するときは、そのフォルダで `git pull` を実行し、新しいセッションを始めます。
+更新するときは `/plugin marketplace update prentice7725` を実行し、新しいセッションを始めます。
+
+インストールせずにローカルのコピーで試すときは、クローンしたフォルダの親フォルダで `claude --plugin-dir ./kouetsu` を実行します。
 
 ### Claude アプリ
 
-Web とデスクトップアプリの Claude のことです。自作のスキルは Free、Pro、Max、Team、Enterprise プランで使え、コード実行をオンにする必要があります。個人プランでは Settings > Capabilities でコード実行をオンにします。Team と Enterprise では、オーナーが組織の設定でオンにします。そのうえで次のようにします。
+Web とデスクトップアプリの Claude のことです。スキルは Free、Pro、Max、Team、Enterprise プランで使え、コード実行がオンでないと動きません。個人プランでは Settings > Capabilities でオンにします。Team と Enterprise ではオーナーが組織の設定でオンにし、メンバーがプラグインを追加できるかどうかも組織の設定で決まります。Plugins メニューが見当たらないときは、オーナーに確認してください。そのうえで、次のどちらかの方法でプラグインを追加します。
 
-1. リポジトリを取得します。`git clone` するか、GitHub の Code > Download ZIP でダウンロードして展開します。
-2. フォルダ名が `deslop` か確かめます。ダウンロードした ZIP を展開すると `deslop-main` になるので、名前を変えます。フォルダ名はスキル名と同じでなければなりません。
-3. `deslop` フォルダを入れた ZIP ファイルを作ります。
-4. Customize > Skills からアップロードします。
+- Customize > Plugins > Add > Add marketplace に `https://github.com/prentice7725/kouetsu` を入力します。アプリがこのリポジトリを追うので、更新を受け取れます。
+- GitHub の Code > Download ZIP でリポジトリをダウンロードし、Customize > Plugins > Add > Upload plugin からアップロードします。アプリはそのコピーを持つので、リポジトリが更新されたら新しい ZIP をアップロードし直してください。
 
 メニュー名は英語の画面に合わせています。
 
-アプリは別にコピーを持ちます。このリポジトリが更新されたら、新しい ZIP をアップロードしてください。
+### スキルだけを使う（Claude Code）
+
+Claude Code でプラグインの仕組みを使わずにスキルだけを使うときは、`skills/kouetsu` フォルダを `~/.claude/skills/kouetsu` にコピーします。更新するときは、もう一度コピーします。
 
 ### ファイル
 
 ```
-deslop/
-├── SKILL.md              # 三つの層と作業手順
-├── references/
-│   ├── ko.md             # 韓国語のパターン
-│   ├── ja.md             # 日本語のパターン
-│   └── en.md             # 英語のパターン
-├── scripts/
-│   └── surface_scan.py   # 文とパターンを数える（Python 3、標準ライブラリのみ）
+kouetsu/
+├── .claude-plugin/
+│   ├── plugin.json           # プラグインの情報
+│   └── marketplace.json      # /plugin marketplace add がプラグインを見つけるためのもの
+├── skills/
+│   └── kouetsu/
+│       ├── SKILL.md          # 三つの層と作業手順
+│       ├── references/
+│       │   ├── ko.md         # 韓国語のパターン
+│       │   ├── ja.md         # 日本語のパターン
+│       │   └── en.md         # 英語のパターン
+│       └── scripts/
+│           └── surface_scan.py   # 文とパターンを数える（Python 3、標準ライブラリのみ）
+├── README.md, README.ko.md, README.ja.md
 └── LICENSE
 ```
 
 `SKILL.md` は、トークンを節約するために英語で書いています。
+
+## データ
+
+kouetsu はコネクタを追加せず、ネットワークへの通信もしません。何がどこで動くかは次のとおりです。
+
+- スキルは Claude への指示です。Claude は、依頼を受けたセッションの中で文章を読みます。
+- Claude は、点検中の下書きに `surface_scan.py` を実行することがあります。Claude Code ではユーザーのマシンで、Claude アプリではコード実行環境で動きます。スクリプトは渡されたファイルだけを読み、件数を出力します。
+- 長い文章の別レビュー（使い方を参照）は、Claude Code では同じセッション内のサブエージェントとして動きます。サブエージェントを起動できない環境では、文章を含むプロンプトを Claude が渡し、新しい会話に貼り付けるかどうかはユーザーが決めます。
 
 ## 使い方
 
@@ -85,11 +104,11 @@ deslop/
 
 ### 直す
 
-既存の文章を deslop で直すよう頼んでください。例：「この報告書を deslop で直して」。Claude は事実関係と書き手の文体を保ち、点検に引っかかった文だけを直します。原文にない行為者・数値・出典は補いません。長い文章ならユーザーに質問し、短い文章なら `[要確認: 何を]` で示します。
+既存の文章を kouetsu で直すよう頼んでください。例：「この報告書を kouetsu で直して」。Claude は事実関係と書き手の文体を保ち、点検に引っかかった文だけを直します。原文にない行為者・数値・出典は補いません。長い文章ならユーザーに質問し、短い文章なら `[要確認: 何を]` で示します。
 
 ### 診断する
 
-文章を deslop で診断するよう頼んでください。例：「この仕様書を deslop で診断して」。Claude は何も書き直しません。文に番号（`[S1]`、`[S2]`、…）を付け、問題ごとにタグを付け、層ごとに報告し、欠陥のある文の割合を示します。
+文章を kouetsu で診断するよう頼んでください。例：「この仕様書を kouetsu で診断して」。Claude は何も書き直しません。文に番号（`[S1]`、`[S2]`、…）を付け、問題ごとにタグを付け、層ごとに報告し、欠陥のある文の割合を示します。
 
 | タグ | 層 | 意味 |
 |---|---|---|
@@ -126,13 +145,13 @@ deslop/
 
 ### パターンを数える
 
-モデルは目で数えるとよく間違えます。コードを実行できる環境では、Claude が `scripts/surface_scan.py` でパターン、太字、見出しを数えます。スクリプトには Python 3 が必要です。Claude Code ではユーザーのマシンに Python が要り、Claude アプリではコード実行環境で動きます。スクリプトを動かせないときは、Claude がパターンを一つずつ検索して数えます。
+モデルは目で数えるとよく間違えます。コードを実行できる環境では、Claude が `surface_scan.py` でパターン、太字、見出しを数えます。スクリプトには Python 3 が必要です。Claude Code ではユーザーのマシンに Python が要り、Claude アプリではコード実行環境で動きます。スクリプトを動かせないときは、Claude がパターンを一つずつ検索して数えます。
 
 自分で実行することもできます。
 
 ```bash
-python3 scripts/surface_scan.py draft.md            # 件数を数え、3回以上出たパターンに印を付ける
-python3 scripts/surface_scan.py draft.md --number   # 診断用に [S1]、[S2]、... を付けて出力する
+python3 skills/kouetsu/scripts/surface_scan.py draft.md            # 件数を数え、3回以上出たパターンに印を付ける
+python3 skills/kouetsu/scripts/surface_scan.py draft.md --number   # 診断用に [S1]、[S2]、... を付けて出力する
 ```
 
 スクリプトは文字から言語を推定します。指定するときは `--lang ko`、`--lang ja`、`--lang en` を使います。それ以外の言語には英語の一覧を使うので、文・太字・見出しの数だけを参考にしてください。スクリプトは件数を報告するだけです。多く出たことは見直す理由であって、判定ではありません。
