@@ -102,7 +102,7 @@ kouetsu はコネクタを追加せず、ネットワークへの通信もしま
 
 ### 直す
 
-既存の文章を kouetsu で直すよう頼んでください。例：「この報告書を kouetsu で直して」。Claude は事実関係と書き手の文体を保ち、点検に引っかかった文だけを直します。原文にない行為者・数値・出典は補いません。長い文章ならユーザーに質問し、短い文章なら `[要確認: 何を]` で示します。
+既存の文章を kouetsu で直すよう頼んでください。例：「この報告書を kouetsu で直して」。Claude は事実関係、確信度、敬体・常体と書き手の文体を保ち、点検に引っかかった文だけを直します。原文にない行為者・数値・出典は補いません。長い文章ならユーザーに質問し、短い文章なら `[要確認: 何を]` で示します。
 
 ### 診断する
 
@@ -152,7 +152,7 @@ kouetsu はコネクタを追加せず、ネットワークへの通信もしま
 ```markdown
 ## Writing
 - Put the conclusion, result, or request in the first sentence.
-- Name the actor in every sentence. Replace pointers and labels coined during the work with real names.
+- Name the actor when it is not already clear from context. Replace pointers and labels coined during the work with real names.
 - Separate what was verified from what was not.
 - Delete sentences that carry no information.
 ```

@@ -100,7 +100,7 @@ Claude decides which kind a text is. You can override it: tell Claude to treat a
 
 ### Revise
 
-Ask Claude to revise existing text with kouetsu, for example "Revise this report with kouetsu." Claude keeps the facts and the author's voice and changes only the sentences that fail a check. It does not fill in an actor, number, or source that the original lacks. For long text, it asks you. For short text, it marks the gap as `[needs confirmation: what]`.
+Ask Claude to revise existing text with kouetsu, for example "Revise this report with kouetsu." Claude keeps the facts, certainty level, register, and the author's voice, and changes only the sentences that fail a check. It does not fill in an actor, number, or source that the original lacks. For long text, it asks you. For short text, it marks the gap as `[needs confirmation: what]`.
 
 ### Diagnose
 
@@ -150,7 +150,7 @@ The skill loads only when Claude decides the task is writing or reviewing prose.
 ```markdown
 ## Writing
 - Put the conclusion, result, or request in the first sentence.
-- Name the actor in every sentence. Replace pointers and labels coined during the work with real names.
+- Name the actor when it is not already clear from context. Replace pointers and labels coined during the work with real names.
 - Separate what was verified from what was not.
 - Delete sentences that carry no information.
 ```
