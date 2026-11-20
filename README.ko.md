@@ -102,7 +102,7 @@ kouetsu는 커넥터를 추가하지 않고, 네트워크 요청을 하지 않�
 
 ### 다듬기
 
-기존 글을 kouetsu로 다듬어 달라고 하면 됩니다. 예: "이 보고서 kouetsu로 다듬어줘." Claude는 사실관계와 필자의 목소리를 지키고, 점검에 걸린 문장만 고칩니다. 원문에 없는 행위자·수치·출처를 채워 넣지 않습니다. 긴 글이면 사용자에게 묻고, 짧은 글이면 `[확인 필요: 무엇]`으로 표시합니다.
+기존 글을 kouetsu로 다듬어 달라고 하면 됩니다. 예: "이 보고서 kouetsu로 다듬어줘." Claude는 사실관계, 확신도, 문체(경어·종결어미)와 필자의 목소리를 지키고, 점검에 걸린 문장만 고칩니다. 원문에 없는 행위자·수치·출처를 채워 넣지 않습니다. 긴 글이면 사용자에게 묻고, 짧은 글이면 `[확인 필요: 무엇]`으로 표시합니다.
 
 ### 진단
 
@@ -152,7 +152,7 @@ kouetsu는 커넥터를 추가하지 않고, 네트워크 요청을 하지 않�
 ```markdown
 ## Writing
 - Put the conclusion, result, or request in the first sentence.
-- Name the actor in every sentence. Replace pointers and labels coined during the work with real names.
+- Name the actor when it is not already clear from context. Replace pointers and labels coined during the work with real names.
 - Separate what was verified from what was not.
 - Delete sentences that carry no information.
 ```

@@ -65,8 +65,8 @@ Ask three questions of every sentence.
 
 - Do not turn actions into nouns. "Validation was performed" → "The test suite validated the input"
 - Avoid passives with no actor. "The cache was changed to be invalidated" → "`save()` invalidates the cache right after writing"
-- Do not use abstract nouns as subjects. The subject is the real actor: a person, a function, a team, or you.
-- Leave the sentence alone when the actor truly does not matter or the order is deliberate emphasis.
+- Do not use abstract nouns as subjects, or give tools and concepts intent or emotion ("the guideline demands discipline"). The subject is the real actor: a person, team, function, or system performing an observable action.
+- Leave the sentence alone when the actor truly does not matter or the order is deliberate emphasis. In languages that naturally drop repeated subjects (such as Korean and Japanese), omit an actor that is already unambiguous from the previous sentence; name it again only when the actor changes or responsibility would otherwise blur.
 - Name only actors the source states. If the source does not say who acts, do not infer one, even when the guess is plausible. Ask, or mark it `[needs confirmation]`.
 
 ### Does the reader know what every term refers to?
@@ -100,7 +100,7 @@ The patterns below signal "not worth reading". Most are symptoms of layer 1 or 2
 | Unsourced authority: "experts say", "it is widely known" | Name the source, or own the claim |
 | Stacked hedges: several qualifiers in one sentence | Hedge once, where the uncertainty is, with the reason |
 | Leaked reasoning: weighing options at length without deciding | Give the decision and the reason. Mention rejected options only if the reader would ask |
-| Heavy formatting: bold in every paragraph, headers on short text, an argument chopped into bullets | Format only what the reader will scan or compare |
+| Heavy formatting: bold in every paragraph, headers on short text, abstract bold-label bullets (`**Speed**: ...`), an argument chopped into bullets | Format only what the reader will scan or compare; fold abstract labels into the sentence and keep `label: text` only for real names, keys, or specs |
 | Chat residue: opening with praise, closing with an offer to help | Delete |
 | Elegant variation: one thing called a different name in each sentence | One thing, one name |
 | Uniform rhythm: paragraphs of equal length, an aphorism closing each one | Write as much as the content needs |
@@ -134,13 +134,13 @@ Text you hand off stays in docs, chat, and repos and becomes source material for
 3. For long text, show an outline first and get confirmation. Check that each section serves the promise.
 4. Write the draft.
 5. Check layer 2 sentence by sentence. Fix only the sentences that fail.
-6. For layer 3, check the all-languages table and the reference file for the language. Count the hits of each listed pattern, and bold labels and headers. Models miscount by eye, so count with a search tool, one pattern at a time: a search that returns a match count, or `grep -c -E` where you can run commands. Search table cells too. Fix any pattern that appears more than twice, starting from the cause.
+6. For layer 3, check the all-languages table and the reference file for the language. Count the hits of each searchable pattern, and bold labels and headers. Models miscount by eye, so count with a search tool, one pattern at a time: a search that returns a match count, or `grep -c -E` where you can run commands. Search table cells too. Fix any pattern that appears more than twice, starting from the cause. Check traits that regex cannot count reliably (such as uniform rhythm, pause commas, or register drift) by reading the draft directly, and verify them again during the final reread in step 8.
 7. Check consistency and test with a reader. Compare every decision, defined term, and list of people against the body. Each must say the same thing wherever it appears. For long text, do not rely on your own reread: writers miss their own contradictions, and they cannot see what the text leaves out because they already know it. Hand a separate reviewer the finished text and your one-line answer to the layer-1 Reader question, and nothing else. The reviewer is a subagent. When you cannot start one, give the user a ready-to-paste prompt that contains the reviewer instructions, the reader line, and the text, and ask them to run it in a new conversation and bring back the findings. Ask it to run "Diagnosis only" and report every `[inconsistent]` pair and every `[blindspot]`. Fix what it reports. If no separate reviewer ran, say in the hand-off that only the writer checked consistency and gaps.
 8. Reread from the top: does a reader who stops after two sentences know the point?
 
 **Revising existing text**
 
-- Do not change facts or the author's voice. Do not touch sentences that have no problem.
+- Do not change facts, certainty level, register or politeness level (e.g., `です・ます` vs `だ・である`, `~합니다` vs `~해요` vs `~이다`), or the author's voice. Turning "will discuss next week" into "agreed" or "unverified hypothesis" into "strongly suspected" is a factual error. Do not touch sentences that have no problem.
 - Do not supply information the original lacks (actor, number, source). For long text, ask the author. For short text, mark `[needs confirmation]`.
 - If layer 1 is empty (no point, no evidence), say so before polishing sentences.
 

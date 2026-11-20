@@ -10,7 +10,7 @@
       "name": "kouetsu",
       "source": "./",
       "description": "Has Claude check prose that other people will read - content first, then clarity, then stock patterns - and test it with a separate reader before you send it.",
-      "version": "1.0.2"
+      "version": "1.1.0"
     }
   ]
 }
